@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartMed - Medicine Authentication System</title>
+  <link rel="stylesheet" href="css/glassmorphism.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Animated Background -->
+  <div class="bg-animation">
+    <div class="bg-blob bg-blob-1"></div>
+    <div class="bg-blob bg-blob-2"></div>
+    <div class="bg-blob bg-blob-3"></div>
+    <div class="bg-blob bg-blob-4"></div>
+    <div class="bg-blob bg-blob-5"></div>
+    <div class="bg-blob bg-blob-6"></div>
+  </div>
+
+  <!-- Floating Particles -->
+  <div class="particles-container">
+    <div class="particle particle-1"></div>
+    <div class="particle particle-2"></div>
+    <div class="particle particle-3"></div>
+    <div class="particle particle-4"></div>
+    <div class="particle particle-5"></div>
+    <div class="particle particle-6"></div>
+    <div class="particle particle-7"></div>
+    <div class="particle particle-8"></div>
+  </div>
+
+  <!-- Auth Screen -->
+  <div id="auth-screen" class="auth-screen">
+    <div class="glass-card auth-card">
+      <div class="auth-header">
+        <div class="auth-logo">💊</div>
+        <h1 class="auth-title">SmartMed</h1>
+        <p class="auth-subtitle">Medicine Authentication System</p>
+      </div>
+
+      <!-- Login Form -->
+      <form id="login-form" class="auth-form">
+        <h2>Welcome Back</h2>
+        <div class="form-group">
+          <label for="login-email">Email</label>
+          <input type="email" id="login-email" placeholder="Enter your email" required>
+        </div>
+        <div class="form-group">
+          <label for="login-password">Password</label>
+          <input type="password" id="login-password" placeholder="Enter your password" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-full">Sign In</button>
+        <p class="auth-switch">Don't have an account? <a href="#" id="show-register">Register</a></p>
+      </form>
+
+      <!-- Register Form -->
+      <form id="register-form" class="auth-form hidden">
+        <h2>Create Account</h2>
+        <div class="form-group">
+          <label for="reg-name">Full Name</label>
+          <input type="text" id="reg-name" placeholder="Enter your name" required>
+        </div>
+        <div class="form-group">
+          <label for="reg-email">Email</label>
+          <input type="email" id="reg-email" placeholder="Enter your email" required>
+        </div>
+        <div class="form-group">
+          <label for="reg-password">Password</label>
+          <input type="password" id="reg-password" placeholder="Create a password" required>
+        </div>
+        <div class="form-group">
+          <label for="reg-role">Register as</label>
+          <select id="reg-role" required>
+            <option value="customer">Customer</option>
+            <option value="pharmacy">Pharmacy</option>
+            <option value="manufacturer">Manufacturer</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="reg-phone">Phone</label>
+          <input type="tel" id="reg-phone" placeholder="Phone number">
+        </div>
+        <div class="form-group">
+          <label for="reg-address">Address</label>
+          <textarea id="reg-address" placeholder="Your address" rows="2"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-full">Create Account</button>
+        <p class="auth-switch">Already have an account? <a href="#" id="show-login">Sign In</a></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Main App (hidden until login) -->
+  <div id="app-screen" class="app-screen hidden">
+    <!-- Navigation -->
+    <nav class="glass-nav">
+      <div class="nav-container">
+        <a href="#" class="nav-logo" onclick="showSection('dashboard')">
+          <span class="logo-icon">💊</span>
+          <span class="logo-text">SmartMed</span>
+        </a>
+        <ul class="nav-links" id="nav-links">
+          <!-- Dynamically populated -->
+        </ul>
+        <div class="nav-actions">
+          <button class="nav-icon-btn" onclick="showNotifications()" title="Notifications">🔔<span class="notif-badge hidden" id="notif-badge">0</span></button>
+          <div class="nav-user">
+            <span id="user-name">User</span>
+            <button class="btn btn-small btn-secondary" onclick="logout()">Logout</button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Dashboard Section -->
+      <section id="section-dashboard" class="section active">
+        <div class="section-container">
+          <h1 class="page-title">Dashboard</h1>
+          <div id="dashboard-content" class="dashboard-content">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Medicines Section -->
+      <section id="section-medicines" class="section">
+        <div class="section-container">
+          <h1 class="page-title">Medicines</h1>
+          <div class="filter-bar">
+            <input type="text" id="medicine-search" placeholder="Search medicines..." class="search-input">
+            <select id="category-filter" class="filter-select">
+              <option value="">All Categories</option>
+            </select>
+          </div>
+          <div id="medicines-grid" class="medicines-grid">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Orders Section -->
+      <section id="section-orders" class="section">
+        <div class="section-container">
+          <h1 class="page-title">Orders</h1>
+          <div id="orders-content" class="orders-content">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </section>
+
+      <!-- QR Scanner Section -->
+      <section id="section-qr" class="section">
+        <div class="section-container">
+          <h1 class="page-title">QR Verification</h1>
+          <div class="qr-scanner-container">
+            <div class="glass-card qr-input-card">
+              <h3>Verify Medicine Authenticity</h3>
+              <p>Enter or scan the QR code on your medicine package</p>
+              <div class="form-group">
+                <input type="text" id="qr-input" placeholder="Enter QR code (e.g., SMARTMED-BAT-2024-001-xxxxxxxx)">
+              </div>
+              <button class="btn btn-primary" onclick="verifyQR()">Verify</button>
+            </div>
+            <div id="qr-result" class="qr-result hidden">
+              <!-- Verification result -->
+            </div>
+          </div>
+          <h2 class="section-subtitle">Recent Verifications</h2>
+          <div id="verification-history" class="verification-history">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Admin Section -->
+      <section id="section-admin" class="section">
+        <div class="section-container">
+          <h1 class="page-title">Admin Panel</h1>
+          <div class="admin-tabs">
+            <button class="tab-btn active" onclick="showAdminTab('users')">Users</button>
+            <button class="tab-btn" onclick="showAdminTab('stats')">Statistics</button>
+            <button class="tab-btn" onclick="showAdminTab('orders')">Orders</button>
+            <button class="tab-btn" onclick="showAdminTab('analytics')">Analytics</button>
+          </div>
+          <div id="admin-content" class="admin-content">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Manufacturer Section -->
+      <section id="section-manufacturer" class="section">
+        <div class="section-container">
+          <h1 class="page-title">Manufacturer Portal</h1>
+          <div class="admin-tabs">
+            <button class="tab-btn active" onclick="showMfrTab('medicines')">My Medicines</button>
+            <button class="tab-btn" onclick="showMfrTab('add-medicine')">Add Medicine</button>
+            <button class="tab-btn" onclick="showMfrTab('add-batch')">Create Batch</button>
+          </div>
+          <div id="manufacturer-content" class="admin-content">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Pharmacy Section -->
+      <section id="section-pharmacy" class="section">
+        <div class="section-container">
+          <h1 class="page-title">Pharmacy Portal</h1>
+          <div class="admin-tabs">
+            <button class="tab-btn active" onclick="showPharmacyTab('orders')">Orders</button>
+            <button class="tab-btn" onclick="showPharmacyTab('verify')">Verify Medicine</button>
+          </div>
+          <div id="pharmacy-content" class="admin-content">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Notifications Modal -->
+  <div id="notifications-modal" class="modal hidden">
+    <div class="modal-overlay" onclick="closeNotifications()"></div>
+    <div class="glass-card modal-content">
+      <div class="modal-header">
+        <h2>Notifications</h2>
+        <button class="modal-close" onclick="closeNotifications()">&times;</button>
+      </div>
+      <div id="notifications-list" class="notifications-list">
+        <!-- Dynamically populated -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
